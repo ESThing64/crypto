@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer } from 'react';
 
 // third-party
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 // action - state management
 import { LOGIN, LOGOUT } from 'store/actions';
