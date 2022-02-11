@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -10,6 +10,7 @@ import BajajAreaChartCard from './BajajAreaChartCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
+import axios from 'axios';
 
 // assets
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
@@ -20,6 +21,21 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading }) => {
+    const [apiData, setApiData] = useState('');
+    const accountApi = 'https://ethcatcher.io/new/vars.txt?fbclid=IwAR0duBCF0a2X1GqSYIlYI9HEiI08UTYFjEB4kFa8b-70fs39IaceHDYU90s';
+    // const accountApi = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd';
+    console.log('hey');
+    useEffect(() => {
+        console.log('inside use effect');
+        axios.get(accountApi).then((data) => {
+            console.log('this is before the dataa');
+            console.log('this is the data', data);
+            setApiData(data);
+        });
+    }, []);
+
+    console.log(apiData);
+
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
