@@ -12,7 +12,7 @@ import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
 import axios from 'axios';
 
-// assets
+// assets;
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
@@ -21,20 +21,18 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading }) => {
-    const [apiData, setApiData] = useState('');
-    const accountApi = 'https://ethcatcher.io/new/vars.txt?fbclid=IwAR0duBCF0a2X1GqSYIlYI9HEiI08UTYFjEB4kFa8b-70fs39IaceHDYU90s';
-    // const accountApi = 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd';
-    console.log('hey');
+    const [apiData, setApiData] = useState([]);
+    const accountApi = 'https://afterlifeapparel.com/index.php';
+
     useEffect(() => {
-        console.log('inside use effect');
+        // console.log('inside use effect');
         axios.get(accountApi).then((data) => {
-            console.log('this is before the dataa');
-            console.log('this is the data', data);
-            setApiData(data);
+            setApiData(data.data);
+            console.log(apiData)
         });
     }, []);
 
-    console.log(apiData);
+    // console.log(apiData);
 
     const theme = useTheme();
 
@@ -53,7 +51,17 @@ const PopularCard = ({ isLoading }) => {
             {isLoading ? (
                 <SkeletonPopularCard />
             ) : (
+                
+
+
                 <MainCard content={false}>
+                    {apiData.map((data) => (
+                        <>
+                        <p>{data.coin}</p>
+                        <p>{data.bal}</p>
+                        <p>{data.price}</p>
+                        </>
+                    ))}
                     <CardContent>
                         <Grid container spacing={gridSpacing}>
                             <Grid item xs={12}>
@@ -96,7 +104,7 @@ const PopularCard = ({ isLoading }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard />
+                                {/* <BajajAreaChartCard /> */}
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container direction="column">
@@ -104,7 +112,7 @@ const PopularCard = ({ isLoading }) => {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    Bajaj Finery
+                                                    {/* {apiData} */}
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
