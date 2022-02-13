@@ -20,13 +20,6 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 
 
 function currencyRow( { theme, coin, bal, price }) {
-
-   
-
-
-
-
-
     return (
       <>
                                <Grid container direction="column">

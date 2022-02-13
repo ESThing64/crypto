@@ -19,21 +19,90 @@ import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutl
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 import CurrencyRow from './CurrencyRow';
+import { it } from 'date-fns/locale';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
+let updatedValue = {}
+let currentCoin;
+let currentCoinValue
+let currentValues;
+
 const PopularCard = ({ isLoading }) => {
     const [apiData, setApiData] = useState([]);
+    const [currentCoinApi, setCurrentCoinData] = useState([]);
+    const [convertUsd, setConvertUsd] = useState(
+        {
+            bitcoin:'Try Again Later, (Api) failed!',
+            ethereum:'Try Again Later, (Api) failed!',
+            chainlink:'Try Again Later, (Api) failed!'
+        
+        });
     const accountApi = 'https://afterlifeapparel.com/index.php';
-
+    
     useEffect(() => {
-        // console.log('inside use effect');
         axios.get(accountApi).then((data) => {
+            
             setApiData(data.data);
-            console.log(apiData)
+
+            // function getCoinData(coinUrl){
+            // }
+            // data.data.forEach(theFunction);
+            // function theFunction(item){
+            //     switch(item.coin){
+            //         case "bitcoin":
+            //             console.log('its bitcoin!')
+            //             getCoinData("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
+            //             break;
+            //         case "ethereum":
+            //             console.log('its ethereum!')
+            //             break;
+            //         case "chainlink":
+            //             console.log('its chainlink!')
+            //             break;
+            //         default:
+            //             console.log('its not bitcoin')
+                        
+            //         }
+            // }
+
         });
     }, []);
 
+    //update the currecny 
+    useEffect(() =>{
+        function getCoinData(coinUrl){
+            axios.get(coinUrl).then((data) => {
+                // setCurrentCoinData(data.data)
+                updatedValue = data.data
+                setConvertUsd(prevState =>({
+                    ...prevState,
+                    ...updatedValue
+                }))
+            })
+
+        }
+        const coinUrls = [
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd"
+        ]
+
+        coinUrls.forEach(getCoinData)
+
+
+
+        // getCoinData("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
+        
+        console.log(currentValues)
+
+    }, [])
+
+    useEffect(()=>{
+        currentValues = convertUsd
+        console.log(currentValues);
+    },[convertUsd])
+    
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -102,8 +171,9 @@ const PopularCard = ({ isLoading }) => {
                             </Grid>
                             <Grid item xs={12}>
                                 {apiData.map((data) => (
+                                   
                         <>
-                        <CurrencyRow coin={data.coin} bal={data.bal} price={data.price} theme={theme} />
+                        <CurrencyRow coin={data.coin.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} bal={data.bal} price={Math.round(currentValues[data.coin].usd * data.bal)/10} theme={theme} />
                         </>
                     ))}
                             </Grid>
