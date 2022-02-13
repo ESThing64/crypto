@@ -108,6 +108,7 @@ const PopularCard = ({ isLoading }) => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container direction="column">
+
                                     <Grid item>
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
@@ -148,6 +149,7 @@ const PopularCard = ({ isLoading }) => {
                                     </Grid>
                                 </Grid>
                                 <Divider sx={{ my: 1.5 }} />
+                                
                                 <Grid container direction="column">
                                     <Grid item>
                                         <Grid container alignItems="center" justifyContent="space-between">
@@ -188,6 +190,7 @@ const PopularCard = ({ isLoading }) => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
+
                                 <Divider sx={{ my: 1.5 }} />
                                 <Grid container direction="column">
                                     <Grid item>
@@ -229,6 +232,7 @@ const PopularCard = ({ isLoading }) => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
+
                                 <Divider sx={{ my: 1.5 }} />
                                 <Grid container direction="column">
                                     <Grid item>
@@ -270,6 +274,7 @@ const PopularCard = ({ isLoading }) => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
+
                                 <Divider sx={{ my: 1.5 }} />
                                 <Grid container direction="column">
                                     <Grid item>
