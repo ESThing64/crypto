@@ -72,13 +72,13 @@ const AppBar = ({ ...others }) => {
                             <Button color="inherit" component={Link} href="#" target="_blank">
                                 Home
                             </Button>
-                            <Button color="inherit" component={RouterLink} to="login" target="_blank">
+                            {/* <Button color="inherit" component={RouterLink} to="login" target="_blank">
                                 Dashboard
                             </Button>
                             <Button color="inherit" component={Link} href="https://codedthemes.gitbook.io/berry" target="_blank">
                                 Documentation
-                            </Button>
-                            <Button
+                            </Button> */}
+                            {/* <Button
                                 component={Link}
                                 href="https://material-ui.com/store/items/berry-react-material-admin/"
                                 disableElevation
@@ -86,7 +86,7 @@ const AppBar = ({ ...others }) => {
                                 color="secondary"
                             >
                                 Purchase Now
-                            </Button>
+                            </Button> */}
                         </Stack>
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                             <IconButton color="inherit" onClick={drawerToggler(true)} size="large">
@@ -123,12 +123,12 @@ const AppBar = ({ ...others }) => {
                                             href="https://codedthemes.gitbook.io/berry"
                                             target="_blank"
                                         >
-                                            <ListItemButton component="a">
+                                            {/* <ListItemButton component="a">
                                                 <ListItemIcon>
                                                     <IconBook />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Documentation" />
-                                            </ListItemButton>
+                                            </ListItemButton> */}
                                         </Link>
                                         <Link
                                             style={{ textDecoration: 'none' }}

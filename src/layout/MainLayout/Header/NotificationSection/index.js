@@ -176,7 +176,7 @@ const NotificationSection = () => {
                                                 <Grid container direction="column" spacing={2}>
                                                     <Grid item xs={12}>
                                                         <Box sx={{ px: 2, pt: 0.25 }}>
-                                                            <TextField
+                                                            {/* <TextField
                                                                 id="outlined-select-currency-native"
                                                                 select
                                                                 fullWidth
@@ -191,7 +191,7 @@ const NotificationSection = () => {
                                                                         {option.label}
                                                                     </option>
                                                                 ))}
-                                                            </TextField>
+                                                            </TextField> */}
                                                         </Box>
                                                     </Grid>
                                                     <Grid item xs={12} p={0}>

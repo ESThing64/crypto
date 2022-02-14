@@ -173,7 +173,7 @@ const PopularCard = ({ isLoading }) => {
                                 {apiData.map((data) => (
                                    
                         <>
-                        <CurrencyRow coin={data.coin.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} bal={data.bal} price={Math.round(currentValues[data.coin].usd * data.bal)/10} theme={theme} />
+                        <CurrencyRow coin={data.coin.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
                         </>
                     ))}
                             </Grid>
