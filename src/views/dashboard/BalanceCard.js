@@ -41,31 +41,8 @@ const PopularCard = ({ isLoading }) => {
     const accountApi = 'https://afterlifeapparel.com/index.php';
     
     useEffect(() => {
-        axios.get(accountApi).then((data) => {
-            
+        axios.get(accountApi).then((data) => {    
             setApiData(data.data);
-
-            // function getCoinData(coinUrl){
-            // }
-            // data.data.forEach(theFunction);
-            // function theFunction(item){
-            //     switch(item.coin){
-            //         case "bitcoin":
-            //             console.log('its bitcoin!')
-            //             getCoinData("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
-            //             break;
-            //         case "ethereum":
-            //             console.log('its ethereum!')
-            //             break;
-            //         case "chainlink":
-            //             console.log('its chainlink!')
-            //             break;
-            //         default:
-            //             console.log('its not bitcoin')
-                        
-            //         }
-            // }
-
         });
     }, []);
 
@@ -166,15 +143,13 @@ const PopularCard = ({ isLoading }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                {/* <BajajAreaChartCard /> */}
+                                <BajajAreaChartCard />
                        
                             </Grid>
                             <Grid item xs={12}>
+
                                 {apiData.map((data) => (
-                                   
-                        <>
                         <CurrencyRow coin={data.coin.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
-                        </>
                     ))}
                             </Grid>
                         </Grid>
