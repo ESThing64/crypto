@@ -123,12 +123,12 @@ const AppBar = ({ ...others }) => {
                                             href="https://codedthemes.gitbook.io/berry"
                                             target="_blank"
                                         >
-                                            {/* <ListItemButton component="a">
+                                            <ListItemButton component="a">
                                                 <ListItemIcon>
                                                     <IconBook />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Documentation" />
-                                            </ListItemButton> */}
+                                            </ListItemButton>
                                         </Link>
                                         <Link
                                             style={{ textDecoration: 'none' }}
