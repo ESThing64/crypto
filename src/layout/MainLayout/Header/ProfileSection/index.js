@@ -101,7 +101,7 @@ const ProfileSection = () => {
                     alignItems: 'center',
                     borderRadius: '27px',
                     transition: 'all .2s ease-in-out',
-                    borderColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
+                    borderColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.dark,
                     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
                     '&[aria-controls="menu-list-grow"], &:hover': {
                         borderColor: theme.palette.primary.main,
@@ -115,20 +115,20 @@ const ProfileSection = () => {
                         lineHeight: 0
                     }
                 }}
-                icon={
-                    <Avatar
-                        src={User1}
-                        sx={{
-                            ...theme.typography.mediumAvatar,
-                            margin: '8px 0 8px 8px !important',
-                            cursor: 'pointer'
-                        }}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        color="inherit"
-                    />
-                }
+                // icon={
+                //     <Avatar
+                //         src={User1}
+                //         sx={{
+                //             ...theme.typography.mediumAvatar,
+                //             margin: '8px 0 8px 8px !important',
+                //             cursor: 'pointer'
+                //         }}
+                //         ref={anchorRef}
+                //         aria-controls={open ? 'menu-list-grow' : undefined}
+                //         aria-haspopup="true"
+                //         color="inherit"
+                //     />
+                // }
                 label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
                 variant="outlined"
                 ref={anchorRef}
@@ -159,7 +159,7 @@ const ProfileSection = () => {
                     <Transitions in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
+                                <MainCard border={true} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
                                     <Box sx={{ p: 2 }}>
                                         {/* <Stack>
                                             <Stack direction="row" spacing={0.5} alignItems="center">
@@ -186,78 +186,21 @@ const ProfileSection = () => {
                                                 'aria-label': 'weight'
                                             }}
                                         /> */}
-                                        <Divider />
+                                        {/* <Divider /> */}
                                     </Box>
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
-                                            <List
-                                                component="nav"
-                                                sx={{
-                                                    width: '100%',
-                                                    maxWidth: 350,
-                                                    minWidth: 300,
-                                                    backgroundColor: theme.palette.background.paper,
-                                                    borderRadius: '10px',
-                                                    [theme.breakpoints.down('md')]: {
-                                                        minWidth: '100%'
-                                                    },
-                                                    '& .MuiListItemButton-root': {
-                                                        mt: 0.5
-                                                    }
-                                                }}
-                                            >
-                                                {/* <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
-                                                > */}
-                                                    {/* <ListItemIcon>
-                                                        <IconSettings stroke={1.5} size="1.3rem" />
-                                                    </ListItemIcon> */}
-                                                    {/* <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} /> */}
-                                                {/* </ListItemButton> */}
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    selected={selectedIndex === 1}
-                                                    onClick={(event) => handleListItemClick(event, 1, '/user/social-profile/posts')}
-                                                >
-                                                    <ListItemIcon>
-                                                        <IconUser stroke={1.5} size="1.3rem" />
-                                                    </ListItemIcon>
-                                                    <ListItemText
-                                                        // primary={
-                                                        //     <Grid container spacing={1} justifyContent="space-between">
-                                                        //         <Grid item>
-                                                        //             <Typography variant="body2">Social Profile</Typography>
-                                                        //         </Grid>
-                                                        //         <Grid item>
-                                                        //             <Chip
-                                                        //                 label="02"
-                                                        //                 size="small"
-                                                        //                 sx={{
-                                                        //                     bgcolor:
-                                                        //                         theme.palette.mode === 'dark'
-                                                        //                             ? theme.palette.dark.dark
-                                                        //                             : theme.palette.warning.dark,
-                                                        //                     color: theme.palette.background.default
-                                                        //                 }}
-                                                        //             />
-                                                        //         </Grid>
-                                                        //     </Grid>
-                                                        // }
-                                                    />
-                                                </ListItemButton>
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 4}
                                                     onClick={handleLogout}
                                                 >
                                                     <ListItemIcon>
-                                                        <IconLogout stroke={1.5} size="1.3rem" />
+                                                        <IconLogout stroke={1.5} size="1.8rem" />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
                                                 </ListItemButton>
-                                            </List>
+                                           
                                         </Box>
                                     </PerfectScrollbar>
                                 </MainCard>

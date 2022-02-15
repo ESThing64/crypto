@@ -64,7 +64,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
             {/* live customization & localization */}
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <LocalizationSection />
+                {/* <LocalizationSection /> */}
             </Box>
 
             {/* notification & profile */}
