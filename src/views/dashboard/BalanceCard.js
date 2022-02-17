@@ -24,8 +24,6 @@ import { it } from 'date-fns/locale';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
-let currentCoin;
-let currentCoinValue
 let currentValues;
 
 const PopularCard = ({ isLoading }) => {
@@ -35,11 +33,16 @@ const PopularCard = ({ isLoading }) => {
         {
             bitcoin:'Try Again Later, (Api) failed!',
             ethereum:'Try Again Later, (Api) failed!',
-            chainlink:'Try Again Later, (Api) failed!'
-        
+            chainlink:'Try Again Later, (Api) failed!',
+            eth: '',
+            STRONG: '',
+            BSC: '',
+            MATIC: '',
+            FTM: '',
+            POWER: '',
         });
     const accountApi = 'https://afterlifeapparel.com/index.php';
-    
+    //Get the data about the user
     useEffect(() => {
         axios.get(accountApi).then((data) => {    
             setApiData(data.data);
@@ -50,7 +53,6 @@ const PopularCard = ({ isLoading }) => {
     useEffect(() =>{
         function getCoinData(coinUrl){
             axios.get(coinUrl).then((data) => {
-                // setCurrentCoinData(data.data)
                 updatedValue = data.data
                 setConvertUsd(prevState =>({
                     ...prevState,
@@ -62,17 +64,16 @@ const PopularCard = ({ isLoading }) => {
         const coinUrls = [
             "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd"
+            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd"
         ]
 
         coinUrls.forEach(getCoinData)
-
-
-
-        // getCoinData("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
-        
-        console.log(currentValues)
-
     }, [])
 
     useEffect(()=>{
@@ -81,7 +82,6 @@ const PopularCard = ({ isLoading }) => {
     },[convertUsd])
     
     const theme = useTheme();
-
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
