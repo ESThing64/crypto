@@ -17,6 +17,8 @@ import { SET_MENU } from 'store/actions';
 // assets
 import { IconChevronRight } from '@tabler/icons';
 
+import Dashboard from '../../views/dashboard/index'
+
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     ...theme.typography.mainContent,
@@ -103,6 +105,7 @@ const MainLayout = () => {
 
             {/* main content */}
             <Main theme={theme} open={leftDrawerOpened}>
+                <Dashboard />
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 <Outlet />

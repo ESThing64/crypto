@@ -30,12 +30,14 @@ function currencyRow( { theme, coin, bal, price }) {
                                                 <Typography variant="subtitle1" color="inherit">
                                                     {coin}
                                                 </Typography>
-                                            </Grid>
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    {bal}
+                                                    {"Balance: " +bal}
                                                 </Typography>
                                             </Grid>
+                                            </Grid>
+
+
                                             <Grid item>
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
@@ -43,8 +45,8 @@ function currencyRow( { theme, coin, bal, price }) {
                                                             {price}
                                                         </Typography>
                                                     </Grid>
-                                                    <Grid item>
-                                                        {/* <Avatar
+                                                    {/* <Grid item>
+                                                        <Avatar
                                                             variant="rounded"
                                                             sx={{
                                                                 width: 16,
@@ -56,8 +58,8 @@ function currencyRow( { theme, coin, bal, price }) {
                                                             }}
                                                         >
                                                             <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
-                                                        </Avatar> */}
-                                                    </Grid>
+                                                        </Avatar>
+                                                    </Grid> */}
                                                 </Grid>
                                             </Grid>
                                         </Grid>

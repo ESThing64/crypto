@@ -155,7 +155,7 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
 
                                 {apiData.map((data) => (
-                        <CurrencyRow coin={data.coin} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
+                        <CurrencyRow coin={data.coin} bal={Math.round(data.bal)} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
                     ))}
                             </Grid>
                         </Grid>
