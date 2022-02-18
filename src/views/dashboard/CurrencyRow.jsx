@@ -32,7 +32,7 @@ function currencyRow( { theme, coin, bal, price }) {
                                                 </Typography>
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    {"Balance: " +bal}
+                                                    {bal}
                                                 </Typography>
                                             </Grid>
                                             </Grid>

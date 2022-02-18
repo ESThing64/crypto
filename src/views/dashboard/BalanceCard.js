@@ -52,8 +52,8 @@ const PopularCard = ({ isLoading }) => {
     // get user's info balance and so on
     const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
     useEffect(() =>{
-        axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data.totals) : setAccountBalanceData('loading'))
-    })
+        axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data[0]) : setAccountBalanceData('loading'))
+    },[])
 
     //Gets current conversion rate to USD 
     useEffect(() =>{
@@ -155,7 +155,7 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
 
                                 {apiData.map((data) => (
-                        <CurrencyRow coin={data.coin} bal={Math.round(data.bal)} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
+                        <CurrencyRow coin={data.coin} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
                     ))}
                             </Grid>
                         </Grid>

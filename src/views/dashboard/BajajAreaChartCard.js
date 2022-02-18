@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
@@ -8,13 +8,69 @@ import { Card, Grid, Typography } from '@mui/material';
 // third-party
 import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
+import { array } from 'prop-types';
 
 // project imports
-import chartData from './chart-data/bajaj-area-chart';
+// import chartData from './chart-data/bajaj-area-chart';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
-const BajajAreaChartCard = () => {
+
+const BajajAreaChartCard = ({accountBalanceData}) => {
+    const arrayLength = useRef(0)
+    const totals = useRef("")
+    let totalArray = []
+
+    useEffect(() =>{
+    let length = accountBalanceData?.totals
+    arrayLength.current = length?.length
+    console.log(arrayLength)
+    },[accountBalanceData])
+
+
+
+    const chartData = {
+        type: 'area',
+        height: 95,
+        options: {
+            chart: {
+                id: 'support-chart',
+                sparkline: {
+                    enabled: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 1
+            },
+            tooltip: {
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: false
+                },
+                y: {
+                    title: 'Ticket '
+                },
+                marker: {
+                    show: false
+                }
+            }
+        },
+        series: [
+            {
+                data: accountBalanceData.totals
+            }
+        ]
+    };
+
+
+
+
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
     const { navType } = customization;
@@ -44,14 +100,13 @@ const BajajAreaChartCard = () => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                                $1839.00
+                                {"$" + accountBalanceData.totals[arrayLength.current -1]}
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.grey[800] }}>
-                       
                     </Typography>
                 </Grid>
             </Grid>
