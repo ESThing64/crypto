@@ -29,27 +29,33 @@ let currentValues;
 const PopularCard = ({ isLoading }) => {
     const [apiData, setApiData] = useState([]);
     const [currentCoinApi, setCurrentCoinData] = useState([]);
+    const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
             bitcoin:'Try Again Later, (Api) failed!',
             ethereum:'Try Again Later, (Api) failed!',
             chainlink:'Try Again Later, (Api) failed!',
-            eth: '',
-            STRONG: '',
-            BSC: '',
-            MATIC: '',
-            FTM: '',
-            POWER: '',
+            strong: '',
+            bsc: '',
+            matic: '',
+            ftm: '',
+            power: '',
         });
-    const accountApi = 'https://afterlifeapparel.com/index.php';
-    //Get the data about the user
+    //Gets the coin data for each user
+        const accountApi = 'https://afterlifeapparel.com/index.php';
     useEffect(() => {
         axios.get(accountApi).then((data) => {    
             setApiData(data.data);
         });
     }, []);
 
-    //update the currecny 
+    // get user's info balance and so on
+    const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
+    useEffect(() =>{
+        axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data.totals) : setAccountBalanceData('loading'))
+    })
+
+    //Gets current conversion rate to USD 
     useEffect(() =>{
         function getCoinData(coinUrl){
             axios.get(coinUrl).then((data) => {
@@ -143,13 +149,13 @@ const PopularCard = ({ isLoading }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard />
+                                <BajajAreaChartCard accountBalanceData={accountBalanceData} />
                        
                             </Grid>
                             <Grid item xs={12}>
 
                                 {apiData.map((data) => (
-                        <CurrencyRow coin={data.coin.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
+                        <CurrencyRow coin={data.coin} bal={Math.round(data.bal)} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
                     ))}
                             </Grid>
                         </Grid>
