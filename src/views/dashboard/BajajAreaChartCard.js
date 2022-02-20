@@ -53,7 +53,7 @@ const BajajAreaChartCard = ({accountBalanceData}) => {
         },
         series: [
             {
-                data: accountBalanceData.totals
+                data: accountBalanceData
             }
         ]
     };

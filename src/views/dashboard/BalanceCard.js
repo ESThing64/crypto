@@ -23,12 +23,13 @@ import CurrencyRow from './CurrencyRow';
 import { it } from 'date-fns/locale';
 
 import FirebaseContext from '../../contexts/FirebaseContext'
+import { array } from 'yup';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
 let currentValues;
-  
+
 const PopularCard = ({ isLoading, children }) => {
     const useAuth = useContext(FirebaseContext)
     const [apiData, setApiData] = useState([]);;
@@ -37,9 +38,9 @@ const PopularCard = ({ isLoading, children }) => {
     const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
-            bitcoin:'Try Again Later, (Api) failed!',
-            ethereum:'Try Again Later, (Api) failed!',
-            chainlink:'Try Again Later, (Api) failed!',
+            bitcoin: 'Try Again Later, (Api) failed!',
+            ethereum: 'Try Again Later, (Api) failed!',
+            chainlink: 'Try Again Later, (Api) failed!',
             strong: '',
             bsc: '',
             matic: '',
@@ -47,15 +48,15 @@ const PopularCard = ({ isLoading, children }) => {
             power: '',
         });
     //Gets the coin data for each user
-        const accountApi = 'https://afterlifeapparel.com/index.php';
-    useEffect(() => {
-        axios.get(accountApi).then((data) => {    
-            setApiData(data.data);
-        });
-    }, []);
+    const accountApi = 'https://afterlifeapparel.com/index.php';
+    // useEffect(() => {
+    //     axios.get(accountApi).then((data) => {    
+    //         setApiData(data.data);
+    //     });
+    // }, []);
 
     useEffect(() => {
-        axios.get('https://afterlifeapparel.com/newform.php').then((data) => {    
+        axios.get('https://afterlifeapparel.com/newform.php').then((data) => {
             setTestData(data.data);
         });
     }, []);
@@ -63,17 +64,17 @@ const PopularCard = ({ isLoading, children }) => {
 
 
     // get user's info balance and so on
-    const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
-    useEffect(() =>{
-        axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data[0]) : setAccountBalanceData('loading'))
-    },[])
+    // const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
+    // useEffect(() =>{
+    //     axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data[0]) : setAccountBalanceData('loading'))
+    // },[])
 
     //Gets current conversion rate to USD 
-    useEffect(() =>{
-        function getCoinData(coinUrl){
+    useEffect(() => {
+        function getCoinData(coinUrl) {
             axios.get(coinUrl).then((data) => {
                 updatedValue = data.data
-                setConvertUsd(prevState =>({
+                setConvertUsd(prevState => ({
                     ...prevState,
                     ...updatedValue
                 }))
@@ -95,17 +96,17 @@ const PopularCard = ({ isLoading, children }) => {
             "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
-            
-        ]   
+
+        ]
 
         coinUrls.forEach(getCoinData)
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         currentValues = convertUsd
         console.log(currentValues);
-    },[convertUsd])
-    
+    }, [convertUsd])
+
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -117,19 +118,35 @@ const PopularCard = ({ isLoading, children }) => {
         setAnchorEl(null);
     };
 
-    useEffect(()=>{
-        testData.map((data) => {
-            console.log(data)
+    useEffect(() => {
+        // testData?.map((data) => {
+        //     console.log(data)
+        // })
+
+        testData.forEach((arrayItem, index, data) => {
+
+            if (arrayItem.user === loggedInUser) {
+                console.log(arrayItem, index)
+                setApiData(arrayItem.coins)
+                setAccountBalanceData(arrayItem.info.totals)
+
+            }
+
+            console.log("hey", index, arrayItem)
+
         })
 
-    },[])
+
+        //go tthrougheach item and if the email of current user is = the one in that index, I will return the index THEN i can map through just like before.
+
+    })
 
     return (
         <>
             {isLoading ? (
                 <SkeletonPopularCard />
             ) : (
-                
+
 
 
                 <MainCard content={false}>
@@ -176,13 +193,13 @@ const PopularCard = ({ isLoading, children }) => {
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
                                 <BajajAreaChartCard accountBalanceData={accountBalanceData} />
-                       
+
                             </Grid>
                             <Grid item xs={12}>
 
                                 {apiData.map((data) => (
-                        <CurrencyRow coin={data.coin} bal={data.bal} price={"$"+Math.round(currentValues[data.coin].usd * data.bal)+ ".00"} theme={theme} />
-                    ))}
+                                    <CurrencyRow coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
+                                ))}
                             </Grid>
                         </Grid>
                     </CardContent>
