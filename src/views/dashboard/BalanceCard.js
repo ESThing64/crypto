@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -17,18 +17,23 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import { FirebaseProvider } from '../../contexts/FirebaseContext'
 
 import CurrencyRow from './CurrencyRow';
 import { it } from 'date-fns/locale';
+
+import FirebaseContext from '../../contexts/FirebaseContext'
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
 let currentValues;
-
-const PopularCard = ({ isLoading }) => {
-    const [apiData, setApiData] = useState([]);
-    const [currentCoinApi, setCurrentCoinData] = useState([]);
+  
+const PopularCard = ({ isLoading, children }) => {
+    const useAuth = useContext(FirebaseContext)
+    const [apiData, setApiData] = useState([]);;
+    const [testData, setTestData] = useState([]);;
+    const [loggedInUser, setLoggedinUser] = useState(useAuth.user.email)
     const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
@@ -48,6 +53,14 @@ const PopularCard = ({ isLoading }) => {
             setApiData(data.data);
         });
     }, []);
+
+    useEffect(() => {
+        axios.get('https://afterlifeapparel.com/newform.php').then((data) => {    
+            setTestData(data.data);
+        });
+    }, []);
+
+
 
     // get user's info balance and so on
     const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
@@ -76,8 +89,14 @@ const PopularCard = ({ isLoading }) => {
             "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd"
-        ]
+            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=25&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+            
+        ]   
 
         coinUrls.forEach(getCoinData)
     }, [])
@@ -97,6 +116,13 @@ const PopularCard = ({ isLoading }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    useEffect(()=>{
+        testData.map((data) => {
+            console.log(data)
+        })
+
+    },[])
 
     return (
         <>

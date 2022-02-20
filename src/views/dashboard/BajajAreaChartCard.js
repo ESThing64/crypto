@@ -17,16 +17,6 @@ import { array } from 'prop-types';
 
 
 const BajajAreaChartCard = ({accountBalanceData}) => {
-    const arrayLength = useRef(0)
-    const totals = useRef("")
-    let totalArray = []
-
-    useEffect(() =>{
-    let length = accountBalanceData?.totals
-    arrayLength.current = length?.length
-    console.log(arrayLength)
-    },[accountBalanceData])
-
 
 
     const chartData = {
@@ -100,7 +90,7 @@ const BajajAreaChartCard = ({accountBalanceData}) => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                                {"$" + accountBalanceData.totals[arrayLength.current -1]}
+                                {"$"}
                             </Typography>
                         </Grid>
                     </Grid>
