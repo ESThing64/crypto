@@ -17,7 +17,6 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import { FirebaseProvider } from '../../contexts/FirebaseContext'
 
 import CurrencyRow from './CurrencyRow';
 import { it } from 'date-fns/locale';
@@ -31,10 +30,12 @@ let updatedValue = {}
 let currentValues;
 
 const PopularCard = ({ isLoading, children }) => {
+    const reducer = (accumulator, curr) => accumulator 
     const useAuth = useContext(FirebaseContext)
-    const [apiData, setApiData] = useState([]);;
-    const [testData, setTestData] = useState([]);;
-    const [loggedInUser, setLoggedinUser] = useState(useAuth.user.email)
+    const [apiData, setApiData] = useState([]);
+    const [testData, setTestData] = useState([]);
+    const [clientProfit, setClientProfit] = useState([])
+    const [loggedInUser, setLoggedinUser] = useState()
     const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
@@ -47,15 +48,8 @@ const PopularCard = ({ isLoading, children }) => {
             ftm: '',
             power: '',
         });
-    //Gets the coin data for each user
-    const accountApi = 'https://afterlifeapparel.com/index.php';
-    // useEffect(() => {
-    //     axios.get(accountApi).then((data) => {    
-    //         setApiData(data.data);
-    //     });
-    // }, []);
-
     useEffect(() => {
+        setLoggedinUser(useAuth.user.email)
         axios.get('https://afterlifeapparel.com/newform.php').then((data) => {
             setTestData(data.data);
         });
@@ -119,36 +113,28 @@ const PopularCard = ({ isLoading, children }) => {
     };
 
     useEffect(() => {
-        // testData?.map((data) => {
-        //     console.log(data)
-        // })
-
-        testData.forEach((arrayItem, index, data) => {
-
+        let currentRoi;
+        testData?.forEach((arrayItem, index, data) => {
             if (arrayItem.user === loggedInUser) {
                 console.log(arrayItem, index)
                 setApiData(arrayItem.coins)
-                setAccountBalanceData(arrayItem.info.totals)
-
+                currentRoi = arrayItem.info.roi
             }
-
-            console.log("hey", index, arrayItem)
-
         })
+        apiData?.forEach((arrayItem)=> {
+            // currentValues[data.coin].usd * data.bal
+            console.log(currentValues[arrayItem.coin].usd, arrayItem.bal)
+            setClientProfit(clientProfit => [...clientProfit, (currentValues[arrayItem.coin].usd * arrayItem.bal) ])
+        })
+  
+    }, [apiData, loggedInUser, testData])
 
-
-        //go tthrougheach item and if the email of current user is = the one in that index, I will return the index THEN i can map through just like before.
-
-    })
 
     return (
         <>
             {isLoading ? (
                 <SkeletonPopularCard />
             ) : (
-
-
-
                 <MainCard content={false}>
                     <CardContent>
                         <Grid container spacing={gridSpacing}>
@@ -192,11 +178,9 @@ const PopularCard = ({ isLoading, children }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard accountBalanceData={accountBalanceData} />
-
+                                <BajajAreaChartCard clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
                             </Grid>
                             <Grid item xs={12}>
-
                                 {apiData.map((data) => (
                                     <CurrencyRow coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
                                 ))}

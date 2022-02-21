@@ -16,7 +16,8 @@ import { array } from 'prop-types';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 
-const BajajAreaChartCard = ({accountBalanceData}) => {
+const BajajAreaChartCard = ({accountBalanceData, clientProfit}) => {
+    
 
 
     const chartData = {
@@ -90,7 +91,7 @@ const BajajAreaChartCard = ({accountBalanceData}) => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                                {"$"}
+                                {clientProfit}
                             </Typography>
                         </Grid>
                     </Grid>
