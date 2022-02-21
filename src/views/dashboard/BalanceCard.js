@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -32,11 +32,14 @@ let currentValues;
 const PopularCard = ({ isLoading, children }) => {
     const reducer = (accumulator, curr) => accumulator 
     const useAuth = useContext(FirebaseContext)
+    const roiRef = useRef(0)
+    const totalRef = useRef(0)
     const [apiData, setApiData] = useState([]);
     const [testData, setTestData] = useState([]);
     const [clientProfit, setClientProfit] = useState([])
     const [loggedInUser, setLoggedinUser] = useState()
     const [clientRoi, setClientRoi] = useState([])
+    const [balance, setBalance] = useState(0)
     const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
@@ -53,6 +56,7 @@ const PopularCard = ({ isLoading, children }) => {
         setLoggedinUser(useAuth.user.email)
         axios.get('https://afterlifeapparel.com/newform.php').then((data) => {
             setTestData(data.data);
+            console.log(typeof(testData))
         });
     }, []);
 
@@ -113,25 +117,40 @@ const PopularCard = ({ isLoading, children }) => {
         setAnchorEl(null);
     };
 
+
+
     useEffect(() => {
         console.log(loggedInUser)
-        testData?.forEach((arrayItem, index, data) => {
+        testData?.forEach((arrayItem) => {
             if (arrayItem.user === loggedInUser) {
-                // console.log(arrayItem, index)
                 setApiData(arrayItem.coins)
-                setClientRoi(parseInt(arrayItem.info.roi))
+                setClientRoi(arrayItem.info.roi)
             }
         })
-        apiData?.forEach((arrayItem)=> {
-            // currentValues[data.coin].usd * data.bal
-            // console.log(currentValues[arrayItem.coin].usd, arrayItem.bal)
-            setClientProfit(clientProfit => [...clientProfit, (currentValues[arrayItem.coin].usd * arrayItem.bal)])
-        })
+   
 
+         let profit = 0
+        apiData?.forEach((arrayItem)=>{
+            profit += currentValues[arrayItem.coin].usd * arrayItem.bal
+
+        })     
+        setClientProfit(profit)
+        
+        
+        
+        
+    }, [loggedInUser, testData, apiData])
+    
+    useEffect(()=>{
+        setBalance(clientProfit + clientRoi)
+        // setFuckingTotal(prevState => prevState + clientRoi)
+    },[clientRoi, clientProfit])
+    // useEffect(()=>{
         
 
-  
-    }, [apiData, loggedInUser, testData])
+       
+
+    // },[apiData])
 
 
     return (
@@ -182,7 +201,7 @@ const PopularCard = ({ isLoading, children }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard clientRoi={clientRoi} clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
+                                <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
                             </Grid>
                             <Grid item xs={12}>
                                 {apiData.map((data) => (
