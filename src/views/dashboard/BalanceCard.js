@@ -36,6 +36,7 @@ const PopularCard = ({ isLoading, children }) => {
     const [testData, setTestData] = useState([]);
     const [clientProfit, setClientProfit] = useState([])
     const [loggedInUser, setLoggedinUser] = useState()
+    const [clientRoi, setClientRoi] = useState([])
     const [accountBalanceData, setAccountBalanceData] = useState([]);
     const [convertUsd, setConvertUsd] = useState(
         {
@@ -98,7 +99,7 @@ const PopularCard = ({ isLoading, children }) => {
 
     useEffect(() => {
         currentValues = convertUsd
-        console.log(currentValues);
+        // console.log(currentValues);
     }, [convertUsd])
 
     const theme = useTheme();
@@ -113,19 +114,22 @@ const PopularCard = ({ isLoading, children }) => {
     };
 
     useEffect(() => {
-        let currentRoi;
+        console.log(loggedInUser)
         testData?.forEach((arrayItem, index, data) => {
             if (arrayItem.user === loggedInUser) {
-                console.log(arrayItem, index)
+                // console.log(arrayItem, index)
                 setApiData(arrayItem.coins)
-                currentRoi = arrayItem.info.roi
+                setClientRoi(parseInt(arrayItem.info.roi))
             }
         })
         apiData?.forEach((arrayItem)=> {
             // currentValues[data.coin].usd * data.bal
-            console.log(currentValues[arrayItem.coin].usd, arrayItem.bal)
-            setClientProfit(clientProfit => [...clientProfit, (currentValues[arrayItem.coin].usd * arrayItem.bal) ])
+            // console.log(currentValues[arrayItem.coin].usd, arrayItem.bal)
+            setClientProfit(clientProfit => [...clientProfit, (currentValues[arrayItem.coin].usd * arrayItem.bal)])
         })
+
+        
+
   
     }, [apiData, loggedInUser, testData])
 
@@ -178,7 +182,7 @@ const PopularCard = ({ isLoading, children }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
+                                <BajajAreaChartCard clientRoi={clientRoi} clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
                             </Grid>
                             <Grid item xs={12}>
                                 {apiData.map((data) => (

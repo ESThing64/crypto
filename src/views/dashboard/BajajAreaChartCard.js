@@ -16,8 +16,25 @@ import { array } from 'prop-types';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 
-const BajajAreaChartCard = ({accountBalanceData, clientProfit}) => {
+const BajajAreaChartCard = ({accountBalanceData, clientRoi, clientProfit}) => {
+    const [balance, setBalance] = useState(0)
     
+
+useEffect(()=>{
+    let sum = 0
+ 
+    clientProfit?.forEach((indexItem)=>{
+        sum += (indexItem)
+        console.log(typeof(indexItem));
+        console.log("Sum", sum)
+    })
+
+    
+    setBalance(sum)
+    // setBalance(prevState => prevState += clientRoi )
+
+
+},[clientProfit,clientRoi])
 
 
     const chartData = {
@@ -91,7 +108,7 @@ const BajajAreaChartCard = ({accountBalanceData, clientProfit}) => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                                {clientProfit}
+                                {Math.round(balance + clientRoi)}
                             </Typography>
                         </Grid>
                     </Grid>
