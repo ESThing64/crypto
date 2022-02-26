@@ -1,9 +1,11 @@
 # crypto
 
 
-Keep track  of your crypto wallet
+## Installation 
 
+## Prerequisites 
 
-add regec to format dollar amount
+node https://nodejs.org/en/
 
-change  the defualt page to forward to the dashboard. If logged in forward to it.
+react npm install -g create -react -app  
+https://reactjs.org
