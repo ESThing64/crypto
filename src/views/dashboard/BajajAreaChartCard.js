@@ -16,9 +16,9 @@ import { array } from 'prop-types';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 
-const BajajAreaChartCard = ({accountBalanceData, balance}) => {
+const BajajAreaChartCard = ({graphData, balance}) => {
 
-    console.log("this is the chart data", accountBalanceData);
+    console.log("this is the chart data", graphData);
 
 
 
@@ -56,7 +56,7 @@ const BajajAreaChartCard = ({accountBalanceData, balance}) => {
         },
         series: [
             {
-                data: accountBalanceData
+                data: graphData
             }
         ]
     };

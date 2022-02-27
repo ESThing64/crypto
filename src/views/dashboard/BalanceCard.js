@@ -29,16 +29,16 @@ import { array } from 'yup';
 let updatedValue = {}
 let currentValues;
 
-const PopularCard = ({ isLoading, children }) => {
+const PopularCard = ({ isLoading }) => {
     const useAuth = useContext(FirebaseContext)
-    const [apiData, setApiData] = useState([]);
-    const [testData, setTestData] = useState([]);
+    const [coinData, setCoinData] = useState([]);
+    const [accountData, setAccountData] = useState([]);
     const [clientProfit, setClientProfit] = useState([])
     const [loggedInUser, setLoggedinUser] = useState()
     const [clientRoi, setClientRoi] = useState([])
     const [balance, setBalance] = useState(0)
-    const [accountBalanceData, setAccountBalanceData] = useState([]);
-    const [convertUsd, setConvertUsd] = useState(
+    const [graphData, setGraphData] = useState([]);
+    const [convertUsdObj, setConvertUsdObj] = useState(
         {
             bitcoin: 'Try Again Later, (Api) failed!',
             ethereum: 'Try Again Later, (Api) failed!',
@@ -50,11 +50,14 @@ const PopularCard = ({ isLoading, children }) => {
             power: '',
         });
     useEffect(() => {
-        setLoggedinUser(useAuth.user.email)
-        axios.get('https://afterlifeapparel.com/newformold.php').then((data) => {
-            setTestData(data.data);
-            console.log(typeof(testData))
-        });
+        if (useAuth.user.email){
+
+            setLoggedinUser(useAuth.user.email)
+            axios.get('https://afterlifeapparel.com/newformold.php').then((data) => {
+                setAccountData(data.data);
+                console.log(typeof(accountData))
+            });
+        }
     }, []);
 
 
@@ -63,7 +66,7 @@ const PopularCard = ({ isLoading, children }) => {
         function getCoinData(coinUrl) {
             axios.get(coinUrl).then((data) => {
                 updatedValue = data.data
-                setConvertUsd(prevState => ({
+                setConvertUsdObj(prevState => ({
                     ...prevState,
                     ...updatedValue
                 }))
@@ -92,9 +95,8 @@ const PopularCard = ({ isLoading, children }) => {
     }, [])
 
     useEffect(() => {
-        currentValues = convertUsd
-        // console.log(currentValues);
-    }, [convertUsd])
+        currentValues = convertUsdObj
+    }, [convertUsdObj])
 
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -110,27 +112,31 @@ const PopularCard = ({ isLoading, children }) => {
 
 
     useEffect(() => {
-        console.log(loggedInUser)
-        testData?.forEach((arrayItem) => {
-            if (arrayItem.user === loggedInUser) {
-                setApiData(arrayItem.coins)
-                setClientRoi(arrayItem.info.roi)
-                setAccountBalanceData(arrayItem.info.totals)
-            }
-        })
-   
+        if(loggedInUser){
 
-         let profit = 0
-        apiData?.forEach((arrayItem)=>{
-            profit += currentValues[arrayItem.coin].usd * arrayItem.bal
 
-        })     
-        setClientProfit(profit)
+            console.log(loggedInUser)
+            accountData?.forEach((arrayItem) => {
+                if (arrayItem.user === loggedInUser) {
+                    setCoinData(arrayItem.coins)
+                    setClientRoi(arrayItem.info.roi)
+                    setGraphData(arrayItem.info.totals)
+                }
+            })
+       
+    
+             let profit = 0
+            coinData?.forEach((arrayItem)=>{
+                profit += currentValues[arrayItem.coin].usd * arrayItem.bal
+    
+            })     
+            setClientProfit(profit)
+        }
         
         
         
         
-    }, [loggedInUser, testData, apiData])
+    }, [loggedInUser, accountData, coinData])
     
     useEffect(()=>{
         setBalance(clientProfit + clientRoi)
@@ -185,11 +191,11 @@ const PopularCard = ({ isLoading, children }) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                                <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} accountBalanceData={accountBalanceData} />
+                                <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} graphData={graphData} />
                             </Grid>
                             <Grid item xs={12}>
-                                {apiData.map((data) => (
-                                    <CurrencyRow coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
+                                {coinData.map((data) => (
+                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
                                 ))}
                             </Grid>
                         </Grid>
