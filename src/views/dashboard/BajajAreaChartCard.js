@@ -17,8 +17,15 @@ import { array } from 'prop-types';
 
 
 const BajajAreaChartCard = ({graphData, balance}) => {
+    const [amount, setAmount] = useState()
 
     console.log("this is the chart data", graphData);
+
+    useEffect(()=>{
+        setAmount(Math.round(balance))
+        setAmount(prevState => "$" + prevState.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+
+    }, [balance])
 
 
 
@@ -93,7 +100,7 @@ const BajajAreaChartCard = ({graphData, balance}) => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                                {Math.round(balance)}
+                                {amount}
                             </Typography>
                         </Grid>
                     </Grid>
