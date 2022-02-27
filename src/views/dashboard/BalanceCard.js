@@ -30,10 +30,7 @@ let updatedValue = {}
 let currentValues;
 
 const PopularCard = ({ isLoading, children }) => {
-    const reducer = (accumulator, curr) => accumulator 
     const useAuth = useContext(FirebaseContext)
-    const roiRef = useRef(0)
-    const totalRef = useRef(0)
     const [apiData, setApiData] = useState([]);
     const [testData, setTestData] = useState([]);
     const [clientProfit, setClientProfit] = useState([])
@@ -54,19 +51,12 @@ const PopularCard = ({ isLoading, children }) => {
         });
     useEffect(() => {
         setLoggedinUser(useAuth.user.email)
-        axios.get('https://afterlifeapparel.com/newform.php').then((data) => {
+        axios.get('https://afterlifeapparel.com/newformold.php').then((data) => {
             setTestData(data.data);
             console.log(typeof(testData))
         });
     }, []);
 
-
-
-    // get user's info balance and so on
-    // const accoutBalanceUrl = "https://afterlifeapparel.com/balance.php"
-    // useEffect(() =>{
-    //     axios.get(accoutBalanceUrl).then((data) => data.status === 200 ? setAccountBalanceData(data.data[0]) : setAccountBalanceData('loading'))
-    // },[])
 
     //Gets current conversion rate to USD 
     useEffect(() => {
@@ -125,6 +115,7 @@ const PopularCard = ({ isLoading, children }) => {
             if (arrayItem.user === loggedInUser) {
                 setApiData(arrayItem.coins)
                 setClientRoi(arrayItem.info.roi)
+                setAccountBalanceData(arrayItem.info.totals)
             }
         })
    
@@ -143,14 +134,7 @@ const PopularCard = ({ isLoading, children }) => {
     
     useEffect(()=>{
         setBalance(clientProfit + clientRoi)
-        // setFuckingTotal(prevState => prevState + clientRoi)
     },[clientRoi, clientProfit])
-    // useEffect(()=>{
-        
-
-       
-
-    // },[apiData])
 
 
     return (

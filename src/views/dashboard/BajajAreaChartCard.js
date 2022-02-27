@@ -16,21 +16,9 @@ import { array } from 'prop-types';
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 
-const BajajAreaChartCard = ({accountBalanceData, fuckingTotal,balance}) => {
-    // const [balance, setBalance] = useState(0)
-    const refBalance = useRef(0)
-    const refRoi = useRef(0)
-    const refTotal = useRef(0) 
-    
-// useEffect(()=> {
-//     setBalance(clientRoi)
-// },[clientRoi])
-useEffect(()=>{
+const BajajAreaChartCard = ({accountBalanceData, balance}) => {
 
-
-
-},[])
-
+    console.log("this is the chart data", accountBalanceData);
 
 
 
