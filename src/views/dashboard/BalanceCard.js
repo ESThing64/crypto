@@ -53,7 +53,7 @@ const PopularCard = ({ isLoading }) => {
         if (useAuth.user.email){
 
             setLoggedinUser(useAuth.user.email)
-            axios.get('https://afterlifeapparel.com/newformold.php').then((data) => {
+            axios.get('http://143.198.97.144/tots.php').then((data) => {
                 setAccountData(data.data);
                 console.log(typeof(accountData))
             });
@@ -73,6 +73,7 @@ const PopularCard = ({ isLoading }) => {
             })
 
         }
+       
         const coinUrls = [
             "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
@@ -88,8 +89,24 @@ const PopularCard = ({ isLoading }) => {
             "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
             "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=oxygen&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=spores-network&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
+            "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd"
 
         ]
+
+    
 
         coinUrls.forEach(getCoinData)
     }, [])
