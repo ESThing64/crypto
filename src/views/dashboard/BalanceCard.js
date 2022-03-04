@@ -53,7 +53,7 @@ const PopularCard = ({ isLoading }) => {
         if (useAuth.user.email){
 
             setLoggedinUser(useAuth.user.email)
-            axios.get('http://143.198.97.144/tots.php').then((data) => {
+            axios.get('http://afterlifeapparel.com/newform.php').then((data) => {
                 setAccountData(data.data);
                 console.log(typeof(accountData))
             });
@@ -113,6 +113,7 @@ const PopularCard = ({ isLoading }) => {
 
     useEffect(() => {
         currentValues = convertUsdObj
+        console.log(convertUsdObj)
     }, [convertUsdObj])
 
     const theme = useTheme();
