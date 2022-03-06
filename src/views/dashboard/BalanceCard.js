@@ -28,6 +28,25 @@ import { array } from 'yup';
 
 let updatedValue = {}
 let currentValues;
+const coinUrls = [
+    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=25&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=oxygen&vs_currencies=usd",
+    "https://api.coingecko.com/api/v3/simple/price?ids=spores-network&vs_currencies=usd",
+]
 
 const PopularCard = ({ isLoading }) => {
     const useAuth = useContext(FirebaseContext)
@@ -38,78 +57,62 @@ const PopularCard = ({ isLoading }) => {
     const [clientRoi, setClientRoi] = useState([])
     const [balance, setBalance] = useState(0)
     const [graphData, setGraphData] = useState([]);
+    const [coinUrlz, setCoinUrlz] =useState([coinUrls])
+    const [error, setError] = useState(null);
+
     const [convertUsdObj, setConvertUsdObj] = useState(
         {
             bitcoin: 'Try Again Later, (Api) failed!',
             ethereum: 'Try Again Later, (Api) failed!',
-            chainlink: 'Try Again Later, (Api) failed!',
-            strong: '',
-            bsc: '',
-            matic: '',
-            ftm: '',
-            power: '',
+            chainlink: 'Try Again Later, (Api) failed!'
         });
     useEffect(() => {
         if (useAuth.user.email){
-
             setLoggedinUser(useAuth.user.email)
             axios.get('http://afterlifeapparel.com/newform.php').then((data) => {
                 setAccountData(data.data);
-                console.log(typeof(accountData))
-            });
+            })
         }
     }, []);
 
+    useEffect(() =>{
+        axios.get('https://afterlifeapparel.com/apis.php').then((data) => {
+                
+            setCoinUrlz(prevSate => prevSate,...data.data)
+        }).finally(
+            console.log('look at ne!', coinUrlz[1]),
+            
+            )
+    })
 
-    //Gets current conversion rate to USD 
-    useEffect(() => {
+    useEffect(()=>{
+        let wtf = coinUrls
+        console.log(wtf[1], 'this is WTF')
         function getCoinData(coinUrl) {
             axios.get(coinUrl).then((data) => {
-                updatedValue = data.data
-                setConvertUsdObj(prevState => ({
-                    ...prevState,
-                    ...updatedValue
-                }))
-            })
+                    updatedValue = data.data
+                    setConvertUsdObj(prevState => ({
+                        ...prevState,
+                       ...updatedValue
+                    }));
+                
+            }).catch(error => {
+                setError(error);
+              });
 
         }
+        console.log('TEST LOOOOOOOOOOOOOOOOOOOK', coinUrlz)
        
-        const coinUrls = [
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=25&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=oxygen&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=spores-network&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
-            "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd"
+                wtf?.forEach(getCoinData)
+        
+    },[coinUrlz])
 
-        ]
-
-    
-
-        coinUrls.forEach(getCoinData)
-    }, [])
+    //Gets current conversion rate to USD 
+    // useEffect(() => {
+       
+       
+       
+    // }, [coinUrlz])
 
     useEffect(() => {
         currentValues = convertUsdObj
@@ -131,8 +134,6 @@ const PopularCard = ({ isLoading }) => {
 
     useEffect(() => {
         if(loggedInUser){
-
-
             console.log(loggedInUser)
             accountData?.forEach((arrayItem) => {
                 if (arrayItem.user === loggedInUser) {
@@ -212,7 +213,7 @@ const PopularCard = ({ isLoading }) => {
                                 <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} graphData={graphData} />
                             </Grid>
                             <Grid item xs={12}>
-                                {coinData.map((data) => (
+                                {coinData?.map((data) => (
                                     <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
                                 ))}
                             </Grid>
