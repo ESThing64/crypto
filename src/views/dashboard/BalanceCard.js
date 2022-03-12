@@ -27,26 +27,26 @@ import { array } from 'yup';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
-let currentValues;
-const coinUrls = [
-    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=25&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=oxygen&vs_currencies=usd",
-    "https://api.coingecko.com/api/v3/simple/price?ids=spores-network&vs_currencies=usd",
-]
+// let currentValues;
+// const coinUrls = [
+//     "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=wbnb&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=wmatic&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=fantom&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=power-nodes&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=25&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-avax&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=cronodes&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=wrapped-cro&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=strong&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=oxygen&vs_currencies=usd",
+//     "https://api.coingecko.com/api/v3/simple/price?ids=spores-network&vs_currencies=usd",
+// ]
 
 const PopularCard = ({ isLoading }) => {
     const useAuth = useContext(FirebaseContext)
@@ -57,7 +57,7 @@ const PopularCard = ({ isLoading }) => {
     const [clientRoi, setClientRoi] = useState([])
     const [balance, setBalance] = useState(0)
     const [graphData, setGraphData] = useState([]);
-    const [coinUrlz, setCoinUrlz] =useState([coinUrls])
+    const [coinUrlz, setCoinUrlz] =useState([])
     const [error, setError] = useState(null);
 
     const [convertUsdObj, setConvertUsdObj] = useState(
@@ -69,7 +69,7 @@ const PopularCard = ({ isLoading }) => {
     useEffect(() => {
         if (useAuth.user.email){
             setLoggedinUser(useAuth.user.email)
-            axios.get('http://afterlifeapparel.com/newform.php').then((data) => {
+            axios.get('http://afterlifeapparel.com/newform_test.php').then((data) => {
                 setAccountData(data.data);
             })
         }
@@ -85,27 +85,27 @@ const PopularCard = ({ isLoading }) => {
             )
     })
 
-    useEffect(()=>{
-        let wtf = coinUrls
-        console.log(wtf[1], 'this is WTF')
-        function getCoinData(coinUrl) {
-            axios.get(coinUrl).then((data) => {
-                    updatedValue = data.data
-                    setConvertUsdObj(prevState => ({
-                        ...prevState,
-                       ...updatedValue
-                    }));
+    // useEffect(()=>{
+    //     let wtf = coinUrls
+    //     console.log(wtf[1], 'this is WTF')
+    //     function getCoinData(coinUrl) {
+    //         axios.get(coinUrl).then((data) => {
+    //                 updatedValue = data.data
+    //                 setConvertUsdObj(prevState => ({
+    //                     ...prevState,
+    //                    ...updatedValue
+    //                 }));
                 
-            }).catch(error => {
-                setError(error);
-              });
+    //         }).catch(error => {
+    //             setError(error);
+    //           });
 
-        }
-        console.log('TEST LOOOOOOOOOOOOOOOOOOOK', coinUrlz)
+    //     }
+    //     console.log('TEST LOOOOOOOOOOOOOOOOOOOK', coinUrlz)
        
-                wtf?.forEach(getCoinData)
+    //             wtf?.forEach(getCoinData)
         
-    },[coinUrlz])
+    // },[coinUrlz])
 
     //Gets current conversion rate to USD 
     // useEffect(() => {
@@ -114,10 +114,10 @@ const PopularCard = ({ isLoading }) => {
        
     // }, [coinUrlz])
 
-    useEffect(() => {
-        currentValues = convertUsdObj
-        console.log(convertUsdObj)
-    }, [convertUsdObj])
+    // useEffect(() => {
+    //     currentValues = convertUsdObj
+    //     console.log(convertUsdObj)
+    // }, [convertUsdObj])
 
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -144,12 +144,12 @@ const PopularCard = ({ isLoading }) => {
             })
        
     
-             let profit = 0
-            coinData?.forEach((arrayItem)=>{
-                profit += currentValues[arrayItem.coin].usd * arrayItem.bal
+            //  let profit = 0
+            // coinData?.forEach((arrayItem)=>{
+            //     profit += currentValues[arrayItem.coin].usd * arrayItem.bal
     
-            })     
-            setClientProfit(profit)
+            // })     
+            // setClientProfit(profit)
         }
         
         
@@ -213,9 +213,9 @@ const PopularCard = ({ isLoading }) => {
                                 <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} graphData={graphData} />
                             </Grid>
                             <Grid item xs={12}>
-                                {coinData?.map((data) => (
+                                {/* {coinData.map((data) => (
                                     <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
-                                ))}
+                                ))} */}
                             </Grid>
                         </Grid>
                     </CardContent>
