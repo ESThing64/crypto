@@ -75,15 +75,15 @@ const PopularCard = ({ isLoading }) => {
         }
     }, []);
 
-    useEffect(() =>{
-        axios.get('https://afterlifeapparel.com/apis.php').then((data) => {
+    // useEffect(() =>{
+    //     axios.get('https://afterlifeapparel.com/apis.php').then((data) => {
                 
-            setCoinUrlz(prevSate => prevSate,...data.data)
-        }).finally(
-            console.log('look at ne!', coinUrlz[1]),
+    //         setCoinUrlz(prevSate => prevSate,...data.data)
+    //     }).finally(
+    //         console.log('look at ne!', coinUrlz[1]),
             
-            )
-    })
+    //         )
+    // })
 
     // useEffect(()=>{
     //     let wtf = coinUrls
@@ -213,9 +213,11 @@ const PopularCard = ({ isLoading }) => {
                                 <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} graphData={graphData} />
                             </Grid>
                             <Grid item xs={12}>
-                                {/* {coinData.map((data) => (
-                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
-                                ))} */}
+                                {coinData.map((data) => (
+                                    console.log(data),
+            
+                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={parseInt(data.price) * parseInt(data.bal) }  theme={theme} />
+                                ))}
                             </Grid>
                         </Grid>
                     </CardContent>
