@@ -216,7 +216,7 @@ const PopularCard = ({ isLoading }) => {
                                 {coinData.map((data) => (
                                     console.log(data),
             
-                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={parseInt(data.price) * parseInt(data.bal) }  theme={theme} />
+                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(parseInt(data.price) * parseInt(data.bal)) + '.00' }  theme={theme} />
                                 ))}
                             </Grid>
                         </Grid>
