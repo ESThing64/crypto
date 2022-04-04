@@ -1,9 +1,11 @@
 # crypto
 
-manage your clients
+manage your clients portfoio
 
 
 ## Installation 
+
+Coming Soon!
 
 ## Prerequisites 
 
