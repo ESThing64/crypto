@@ -1,6 +1,6 @@
 # crypto
 
-manage your clients portfoio
+manage your client's portfoio
 
 
 ## Installation 
