@@ -27,7 +27,7 @@ import { array } from 'yup';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
-// let currentValues;
+let currentValues;
 // const coinUrls = [
 //     "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
 //     "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
@@ -75,15 +75,15 @@ const PopularCard = ({ isLoading }) => {
         }
     }, []);
 
-    useEffect(() =>{
-        axios.get('https://afterlifeapparel.com/apis.php').then((data) => {
+    // useEffect(() =>{
+    //     axios.get('https://afterlifeapparel.com/apis.php').then((data) => {
                 
-            setCoinUrlz(prevSate => prevSate,...data.data)
-        }).finally(
-            console.log('look at ne!', coinUrlz[1]),
+    //         setCoinUrlz(prevSate => prevSate,...data.data)
+    //     }).finally(
+    //         console.log('look at ne!', coinUrlz[1]),
             
-            )
-    })
+    //         )
+    // })
 
     // useEffect(()=>{
     //     let wtf = coinUrls
@@ -144,12 +144,12 @@ const PopularCard = ({ isLoading }) => {
             })
        
     
-            //  let profit = 0
-            // coinData?.forEach((arrayItem)=>{
-            //     profit += currentValues[arrayItem.coin].usd * arrayItem.bal
+             let profit = 0
+            coinData?.forEach((arrayItem)=>{
+                profit += arrayItem.price * arrayItem.bal
     
-            // })     
-            // setClientProfit(profit)
+            })     
+            setClientProfit(profit)
         }
         
         
@@ -213,9 +213,11 @@ const PopularCard = ({ isLoading }) => {
                                 <BajajAreaChartCard balance={balance} clientRoi={clientRoi} clientProfit={clientProfit} graphData={graphData} />
                             </Grid>
                             <Grid item xs={12}>
-                                {/* {coinData.map((data) => (
-                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(currentValues[data.coin].usd * data.bal) + ".00"} theme={theme} />
-                                ))} */}
+                                {coinData.map((data) => (
+                                    console.log(data),
+            
+                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(parseInt(data.price) * parseInt(data.bal)) + '.00' }  theme={theme} />
+                                ))}
                             </Grid>
                         </Grid>
                     </CardContent>
