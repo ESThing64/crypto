@@ -27,7 +27,7 @@ import { array } from 'yup';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 let updatedValue = {}
-// let currentValues;
+let currentValues;
 // const coinUrls = [
 //     "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
 //     "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
@@ -144,12 +144,12 @@ const PopularCard = ({ isLoading }) => {
             })
        
     
-            //  let profit = 0
-            // coinData?.forEach((arrayItem)=>{
-            //     profit += currentValues[arrayItem.coin].usd * arrayItem.bal
+             let profit = 0
+            coinData?.forEach((arrayItem)=>{
+                profit += arrayItem.price * arrayItem.bal
     
-            // })     
-            // setClientProfit(profit)
+            })     
+            setClientProfit(profit)
         }
         
         
