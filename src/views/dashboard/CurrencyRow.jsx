@@ -45,21 +45,6 @@ function currencyRow( { theme, coin, bal, price }) {
                                                             {price}
                                                         </Typography>
                                                     </Grid>
-                                                    {/* <Grid item>
-                                                        <Avatar
-                                                            variant="rounded"
-                                                            sx={{
-                                                                width: 16,
-                                                                height: 16,
-                                                                borderRadius: '5px',
-                                                                backgroundColor: theme.palette.success.light,
-                                                                color: theme.palette.success.dark,
-                                                                ml: 2
-                                                            }}
-                                                        >
-                                                            <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
-                                                        </Avatar>
-                                                    </Grid> */}
                                                 </Grid>
                                             </Grid>
                                         </Grid>

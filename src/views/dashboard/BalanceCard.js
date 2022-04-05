@@ -48,6 +48,10 @@ const PopularCard = ({ isLoading }) => {
         }
     }, []);
 
+    const roundToHundredth = (value) => {
+        return Number(value.toFixed(2));
+      };
+
 
 
     const theme = useTheme();
@@ -146,8 +150,7 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
                                 {coinData.map((data) => (
                                     console.log(data),
-            
-                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + Math.round(parseInt(data.price) * parseInt(data.bal)) + '.00' }  theme={theme} />
+                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + roundToHundredth(parseFloat(data.price) * parseFloat(data.bal)) }  theme={theme} />
                                 ))}
                             </Grid>
                         </Grid>
