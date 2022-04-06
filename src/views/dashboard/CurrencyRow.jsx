@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import { Avatar, Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem, Typography, Link } from '@mui/material';
 
 // project imports
 import BajajAreaChartCard from './BajajAreaChartCard';
@@ -29,7 +29,7 @@ function currencyRow( { theme, coin, bal, price, url }) {
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
                                                    
-                                                    <a target="_blank" href={url}>{coin}</a>
+                                                    <Link underline="hover"  target="_blank" color="inherit" href={url}>{coin}</Link>
                                                 </Typography>
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
