@@ -44,6 +44,7 @@ const PopularCard = ({ isLoading }) => {
             setLoggedinUser(useAuth.user.email)
             axios.get('http://afterlifeapparel.com/newform_test.php').then((data) => {
                 setAccountData(data.data);
+                console.log('api data', accountData);
             })
         }
     }, []);
@@ -75,6 +76,9 @@ const PopularCard = ({ isLoading }) => {
                     setCoinData(arrayItem.coins)
                     setClientRoi(arrayItem.info.roi)
                     setGraphData(arrayItem.info.totals)
+                    console.log('coin data',coinData);
+                    console.log('client roi',clientRoi);
+
                 }
             })
        
@@ -150,7 +154,7 @@ const PopularCard = ({ isLoading }) => {
                             <Grid item xs={12}>
                                 {coinData.map((data) => (
                                     console.log(data),
-                                    <CurrencyRow key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + roundToHundredth(parseFloat(data.price) * parseFloat(data.bal)) }  theme={theme} />
+                                    <CurrencyRow url={data.url} key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + roundToHundredth(parseFloat(data.price) * parseFloat(data.bal)) }  theme={theme} />
                                 ))}
                             </Grid>
                         </Grid>

@@ -19,7 +19,7 @@ import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutl
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 
-function currencyRow( { theme, coin, bal, price }) {
+function currencyRow( { theme, coin, bal, price, url }) {
     return (
       <>
                                <Grid container direction="column">
@@ -28,7 +28,8 @@ function currencyRow( { theme, coin, bal, price }) {
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                    {coin}
+                                                   
+                                                    <a target="_blank" href={url}>{coin}</a>
                                                 </Typography>
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
