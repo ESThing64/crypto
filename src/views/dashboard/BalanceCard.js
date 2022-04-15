@@ -153,7 +153,6 @@ const PopularCard = ({ isLoading }) => {
                             </Grid>
                             <Grid item xs={12}>
                                 {coinData.map((data) => (
-                                    console.log(data),
                                     <CurrencyRow url={data.url} key={data.coin + data.bal} coin={data.coin} bal={data.bal} price={"$" + roundToHundredth(parseFloat(data.price) * parseFloat(data.bal)) }  theme={theme} />
                                 ))}
                             </Grid>
